@@ -8,7 +8,7 @@ Username.innerHTML = `<p> ${username} </p>`;
 
 let dreams: Dream[] = loadDreams();
 
-function loadDreams(): void {
+function loadDreams(): Dream[] {
     const storedDreams = localStorage.getItem("dreams");
     return storedDreams ? JSON.parse(storedDreams) : [];
 }
@@ -32,9 +32,24 @@ function renderDreams(): void {
     dreams.forEach((dream) => {
         const li = document.createElement("li");
         li.classList.add("dream-list_item");
-        li.innerHTML = `
-        `
-    })
+        li.innerHTML = ` <input class="dream-check" type="checkbox" name="dream-check" id="dream-check-${dream.id}" ${
+      dream.checked ? "checked" : ""
+    }>
+      <label for="dream-check-${dream.id}">${dream.name}, <span class="dream-theme">${dream.theme}</span></label>
+      <button type="button"><img src="../assets/images/trash_delete.png" alt="delete"></button>
+        `;
+
+        const checkBox = li.querySelector(`input#dream-check-${dream.id}`) as HTMLInputElement;
+        checkBox.addEventListener("change", () => toggleDreamComplete(dream.id));
+        const deleteBtn = li.querySelector("button") as HTMLButtonElement;
+        dreamList.appendChild(li);
+    });
+}
+
+function toggleDreamComplete(id: number): void {
+    dreams = dreams.map((dream) => dream.id === id ? {...dream, checked: !dream.checked} : dream);
+    saveDream();
+    renderDreams();
 }
 
 
