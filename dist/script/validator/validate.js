@@ -3,7 +3,7 @@ export function validate(name) {
         alert("Username cannot be empty!");
         return false;
     }
-    else if (name.length < 3) {
+    else if (name.length < 4) {
         alert("name cannot be shorten 3 alphabet!!");
         return false;
     }

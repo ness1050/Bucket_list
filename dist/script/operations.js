@@ -1,4 +1,4 @@
-function AddDream(id, User) {
-}
 export {};
+// function IdGenerator ():  number {
+// }
 //# sourceMappingURL=operations.js.map
